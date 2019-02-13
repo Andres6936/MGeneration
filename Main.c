@@ -7,6 +7,8 @@
 #include "Source/Include/BearLibTerminal.h"
 #include "Source/Include/World.h"
 #include "Source/Include/Player.h"
+#include "Source/Include/Vector.h"
+#include "Source/Include/EDirection.h"
 #include "Source/Include/DrawDungeon.h"
 
 const int BUFFER_MINIMUN_SIZE = 10;
@@ -19,22 +21,6 @@ static void usage( void )
     puts( "\tascii-owrpg [file]" );
     puts( "\tascii-owrpg -h" );
 }
-
-typedef struct
-{
-    int y;
-    int x;
-
-} Coordinate2D;
-
-typedef enum
-{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-
-} EDirection;
 
 World loadWorld( const char *filename )
 {
@@ -160,7 +146,7 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
         }
     }
 
-    Coordinate2D *freeCells = malloc( sizeof( Coordinate2D ) * walks * steps ); // too much, but I don't care...
+    Vector2D *freeCells = malloc( sizeof( Vector2D ) * walks * steps ); // too much, but I don't care...
 
     int counter = 0;
 
@@ -174,7 +160,7 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
             EDirection direction = rand( ) % 4;
             switch ( direction )
             {
-                case UP:
+                case NORTH:
                     if (( y - 1 ) > 1 )
                     {
                         newWorld.map[ --y ][ x ] = '.';
@@ -183,7 +169,7 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
                         counter++;
                     }
                     break;
-                case RIGHT:
+                case EAST:
                     if (( x + 1 ) < width - 1 )
                     {
                         newWorld.map[ y ][ ++x ] = '.';
@@ -192,7 +178,7 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
                         counter++;
                     }
                     break;
-                case LEFT:
+                case WEST:
                     if (( x - 1 ) > 1 )
                     {
                         newWorld.map[ y ][ --x ] = '.';
@@ -201,7 +187,7 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
                         counter++;
                     }
                     break;
-                case DOWN:
+                case SOUTH:
                     if (( y + 1 ) < height - 1 )
                     {
                         newWorld.map[ ++y ][ x ] = '.';
@@ -216,34 +202,13 @@ World newWorld( int height, int width, int walks, int steps, Player* player )
         }
     }
 
-    Coordinate2D coodinatePlayerRandom = freeCells[ rand( ) % counter ];
+    Vector2D coodinatePlayerRandom = freeCells[ rand( ) % counter ];
 
     player->x = coodinatePlayerRandom.x;
     player->y = coodinatePlayerRandom.y;
 
     free( freeCells );
     return newWorld;
-}
-
-void moveTo( EDirection direction, Player *player )
-{
-
-    if (direction == UP)
-    {
-        player->y--;
-    }
-    else if (direction == DOWN)
-    {
-        player->y++;
-    }
-    else if (direction == LEFT)
-    {
-        player->x--;
-    }
-    else if (direction == RIGHT)
-    {
-        player->x++;
-    }
 }
 
 int main( int argc, char *argv[] )
@@ -284,30 +249,19 @@ int main( int argc, char *argv[] )
     DrawDungeon(&world, &player);
     terminal_refresh();
 
+    // Main Loop
     while ( running )
     {
         key = terminal_read( );
 
-        if (key == TK_UP)
-        {
-            moveTo( UP, &player );
-        }
-        else if (key == TK_DOWN)
-        {
-            moveTo( DOWN, &player );
-        }
-        else if (key == TK_LEFT)
-        {
-            moveTo( LEFT, &player );
-        }
-        else if (key == TK_RIGHT)
-        {
-            moveTo( RIGHT, &player );
-        }
-        else if (key == TK_CLOSE)
+        // The user close the window or app
+        if (key == TK_CLOSE)
         {
             running = false;
         }
+
+        // Handle events
+        handlerEventPlayer(key, &player);
 
         // Clear, Draw and Refresh
         terminal_clear();

@@ -1,6 +1,9 @@
 // Only include file once
 #pragma once
 
+#include "BearLibTerminal.h"
+#include "EDirection.h"
+
 typedef struct
 {
 
@@ -8,3 +11,7 @@ typedef struct
     int y;
 
 } Player;
+
+void moveTo( EDirection direction, Player *player );
+
+void handlerEventPlayer(int key, Player *player);
