@@ -6,11 +6,11 @@
 #include <time.h>
 #include <ncurses.h>
 
-static const size_t buf_min_size = 10;
-static const unsigned short MAP_HEIGHT = 1000;
-static const unsigned short MAP_WIDTH = 1000;
-static const unsigned int walks = 1000;
-static const unsigned int steps = 2500;
+const size_t buf_min_size = 10;
+const unsigned short MAP_HEIGHT = 1000;
+const unsigned short MAP_WIDTH = 1000;
+const unsigned int walks = 1000;
+const unsigned int steps = 2500;
 
 static void usage( void )
 {
@@ -25,7 +25,7 @@ typedef struct
     int width;  /* The width of the world map */
     int y_pos;  /* Player y position */
     int x_pos;  /* Player x position */
-    char **map;
+    char map[1000][1000];
 
 } World;
 
@@ -64,7 +64,6 @@ World load_world( const char *f )
     bool first_line = true;
     size_t line_number = 0;
     World new_world;
-    new_world.map = NULL;
     bool player_already_found = false;
 
     int c;
@@ -87,8 +86,8 @@ World load_world( const char *f )
                     exit( EXIT_FAILURE );
                 }
             }
-            new_world.map = realloc( new_world.map, sizeof( char * ) * ( line_number + 1 ));
-            new_world.map[ line_number ] = malloc( sizeof( char ) * current_line_length );
+//            new_world.map = realloc( new_world.map, sizeof( char * ) * ( line_number + 1 ));
+//            new_world.map[ line_number ] = malloc( sizeof( char ) * current_line_length );
             memcpy( new_world.map[ line_number ], buf, current_line_length + 1 );
             line_number++;
             current_line_length = 0;
@@ -159,15 +158,11 @@ World new_world( int height, int width, int walks, int steps )
     newWorld.height = MAP_HEIGHT;
     newWorld.width = MAP_WIDTH;
 
-    char **newMap = NULL;
-
-    for ( size_t i = 0; i < height; ++i )
+    for (int x = 0; x < MAP_WIDTH; x++)
     {
-        newMap = realloc( newMap, sizeof( char * ) * i + 1 );
-        newMap[ i ] = malloc( sizeof( char ) * width );
-        for ( size_t j = 0; j < width; ++j )
+        for (int y = 0; y < MAP_HEIGHT; y++)
         {
-            newMap[ i ][ j ] = '#';
+            newWorld.map[x][y] = '#';
         }
     }
 
@@ -188,7 +183,7 @@ World new_world( int height, int width, int walks, int steps )
                 case UP:
                     if (( y - 1 ) > 1 )
                     {
-                        newMap[ --y ][ x ] = '.';
+                        newWorld.map[ --y ][ x ] = '.';
                         freeCells[ counter ].y = y;
                         freeCells[ counter ].x = x;
                         counter++;
@@ -197,7 +192,7 @@ World new_world( int height, int width, int walks, int steps )
                 case RIGHT:
                     if (( x + 1 ) < width - 1 )
                     {
-                        newMap[ y ][ ++x ] = '.';
+                        newWorld.map[ y ][ ++x ] = '.';
                         freeCells[ counter ].y = y;
                         freeCells[ counter ].x = x;
                         counter++;
@@ -206,7 +201,7 @@ World new_world( int height, int width, int walks, int steps )
                 case LEFT:
                     if (( x - 1 ) > 1 )
                     {
-                        newMap[ y ][ --x ] = '.';
+                        newWorld.map[ y ][ --x ] = '.';
                         freeCells[ counter ].y = y;
                         freeCells[ counter ].x = x;
                         counter++;
@@ -215,7 +210,7 @@ World new_world( int height, int width, int walks, int steps )
                 case DOWN:
                     if (( y + 1 ) < height - 1 )
                     {
-                        newMap[ ++y ][ x ] = '.';
+                        newWorld.map[ ++y ][ x ] = '.';
                         freeCells[ counter ].y = y;
                         freeCells[ counter ].x = x;
                         counter++;
@@ -227,7 +222,6 @@ World new_world( int height, int width, int walks, int steps )
         }
     }
 
-    newWorld.map = newMap;
     Coordinate2D player = freeCells[ rand( ) % counter ];
     newWorld.y_pos = player.y;
     newWorld.x_pos = player.x;
