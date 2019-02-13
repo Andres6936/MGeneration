@@ -6,7 +6,7 @@
 #include <time.h>
 #include <ncurses.h>
 
-const size_t buf_min_size = 10;
+const int BUFFER_MINIMUN_SIZE = 10;
 const unsigned short MAP_HEIGHT = 1000;
 const unsigned short MAP_WIDTH = 1000;
 const unsigned int walks = 1000;
@@ -47,85 +47,90 @@ typedef enum
 
 int minInt(int x, int y);
 
-World load_world( const char *f )
+World loadWorld( const char *filename )
 {
-    FILE *fp = fopen( f, "r" );
+    FILE *stream = fopen( filename, "r" );
 
-    if ( !fp )
+    if ( !stream )
     {
         perror( "Error while reading file" );
         exit( EXIT_FAILURE );
     }
 
-    char *buf = malloc( sizeof( char ) * buf_min_size );
-    size_t buf_size = buf_min_size;
-    size_t first_line_length;
-    size_t current_line_length = 0;
-    bool first_line = true;
-    size_t line_number = 0;
+    char *buf = malloc( sizeof( char ) * BUFFER_MINIMUN_SIZE );
+
+    int bufferSize = BUFFER_MINIMUN_SIZE;
+
+    int firstLineLength = 0;
+    int currentLineLength = 0;
+
+    _Bool firstLine = true;
+    int line_number = 0;
+
     World new_world;
-    bool player_already_found = false;
+
+    _Bool playerAlreadyFound = false;
 
     int c;
 
-    while (( c = getc( fp )) != EOF)
+    while (( c = getc( stream )) != EOF)
     {
         if ( c == '\n' )
         {
-            if ( first_line )
+            if ( firstLine )
             {
-                first_line_length = current_line_length;
-                new_world.width = first_line_length;
-                first_line = false;
+                firstLineLength = currentLineLength;
+                new_world.width = firstLineLength;
+                firstLine = false;
             }
             else
             {
-                if ( current_line_length != first_line_length )
+                if ( currentLineLength != firstLineLength )
                 {
                     fprintf( stderr, "Error: map is not square\n" );
                     exit( EXIT_FAILURE );
                 }
             }
-//            new_world.map = realloc( new_world.map, sizeof( char * ) * ( line_number + 1 ));
-//            new_world.map[ line_number ] = malloc( sizeof( char ) * current_line_length );
-            memcpy( new_world.map[ line_number ], buf, current_line_length + 1 );
+//            new_world.map = realloc( ew_world.map, sizeof( char * ) * ( line_number + 1 ));
+//            new_world.map[ line_number ] = malloc( sizeof( char ) * currentLineLength );
+            memcpy( new_world.map[ line_number ], buf, currentLineLength + 1 );
             line_number++;
-            current_line_length = 0;
+            currentLineLength = 0;
             free( buf );
-            buf = malloc( sizeof( char ) * buf_min_size );
-            buf_size = buf_min_size;
+            buf = malloc( sizeof( char ) * BUFFER_MINIMUN_SIZE );
+            bufferSize = BUFFER_MINIMUN_SIZE;
             continue;
         }
-        if (( c != '#' ) && ( c != '.' ) && ( c != '@' ))
+        else if (( c != '#' ) && ( c != '.' ) && ( c != '@' ))
         {
             fprintf( stderr,
                      "Unknown character \"%c\" in the data file \"%s\"\n at line %zu, column %zu\n",
-                     c, f, line_number + 1, current_line_length + 1 );
+                     c, filename, line_number + 1, currentLineLength + 1 );
             exit( EXIT_FAILURE );
         }
-        if ( c == '@' )
+        else if ( c == '@' )
         {
-            if ( player_already_found )
+            if ( playerAlreadyFound )
             {
                 fprintf( stderr, "More than one player position found\n" );
                 exit( EXIT_FAILURE );
             }
-            new_world.x_pos = current_line_length;
+            new_world.x_pos = currentLineLength;
             new_world.y_pos = line_number;
             c = '.';
-            player_already_found = true;
+            playerAlreadyFound = true;
         }
-        if ( buf_size <= current_line_length )
+        else if ( bufferSize <= currentLineLength )
         {
-            buf = realloc( buf, ( buf_size + buf_min_size ) * sizeof( char ));
-            buf_size += buf_min_size;
+            buf = realloc( buf, ( bufferSize + BUFFER_MINIMUN_SIZE ) * sizeof( char ));
+            bufferSize += BUFFER_MINIMUN_SIZE;
         }
-        buf[ current_line_length++ ] = c;
+        buf[ currentLineLength++ ] = c;
     }
 
     free( buf );
 
-    if ( !player_already_found )
+    if ( !playerAlreadyFound )
     {
         fprintf( stderr, "No player was found on the map\n" );
         exit( EXIT_FAILURE );
@@ -133,13 +138,13 @@ World load_world( const char *f )
 
     new_world.height = line_number;
 
-    if ( !feof( fp ))
+    if ( !feof( stream ))
     {
         perror( "Error while reading file" );
         exit( EXIT_FAILURE );
     }
 
-    fclose( fp );
+    fclose( stream );
 
 #if DEBUG
     puts("The map has been loaded sucessfully.");
@@ -148,7 +153,7 @@ World load_world( const char *f )
     return new_world;
 }
 
-World new_world( int height, int width, int walks, int steps )
+World newWorld( int height, int width, int walks, int steps )
 {
     // Generate an seed for new map.
     //srand( time(NULL));
@@ -229,7 +234,7 @@ World new_world( int height, int width, int walks, int steps )
     return newWorld;
 }
 
-void draw_world( World *world, int row, int col )
+void drawWorld( World *world, int row, int col )
 {
     int new_height;
     int new_width;
@@ -368,11 +373,11 @@ int main( int argc, char *argv[] )
 
     if ( argc == 2 )
     {
-        world = load_world( argv[ 1 ] );
+        world = loadWorld( argv[ 1 ] );
     }
     else
     {
-        world = new_world( MAP_HEIGHT, MAP_WIDTH, walks, steps );
+        world = newWorld( MAP_HEIGHT, MAP_WIDTH, walks, steps );
     }
 
     initscr( );
@@ -389,7 +394,7 @@ int main( int argc, char *argv[] )
     {
         clear( );
         getmaxyx( stdscr, row, col );
-        draw_world( &world, row, col );
+        drawWorld( &world, row, col );
         refresh( );
         c = getch( );
         switch ( c )
