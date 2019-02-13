@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <math.h>
-#include <time.h>
 #include <ncurses.h>
 
+#include "Source/Include/BearLibTerminal.h"
+#include "Source/Include/World.h"
+#include "Source/Include/Player.h"
+#include "Source/Include/DrawDungeon.h"
+
 const int BUFFER_MINIMUN_SIZE = 10;
-const unsigned short MAP_HEIGHT = 1000;
-const unsigned short MAP_WIDTH = 1000;
 const unsigned int walks = 1000;
 const unsigned int steps = 2500;
 
@@ -18,16 +19,6 @@ static void usage( void )
     puts( "\tascii-owrpg [file]" );
     puts( "\tascii-owrpg -h" );
 }
-
-typedef struct
-{
-    int height; /* The height of the world map */
-    int width;  /* The width of the world map */
-    int y_pos;  /* Player y position */
-    int x_pos;  /* Player x position */
-    char map[1000][1000];
-
-} World;
 
 typedef struct
 {
@@ -44,8 +35,6 @@ typedef enum
     RIGHT
 
 } EDirection;
-
-int minInt(int x, int y);
 
 World loadWorld( const char *filename )
 {
@@ -153,7 +142,7 @@ World loadWorld( const char *filename )
     return new_world;
 }
 
-World newWorld( int height, int width, int walks, int steps )
+World newWorld( int height, int width, int walks, int steps, Player* player )
 {
     // Generate an seed for new map.
     //srand( time(NULL));
@@ -227,132 +216,33 @@ World newWorld( int height, int width, int walks, int steps )
         }
     }
 
-    Coordinate2D player = freeCells[ rand( ) % counter ];
-    newWorld.y_pos = player.y;
-    newWorld.x_pos = player.x;
+    Coordinate2D coodinatePlayerRandom = freeCells[ rand( ) % counter ];
+
+    player->x = coodinatePlayerRandom.x;
+    player->y = coodinatePlayerRandom.y;
+
     free( freeCells );
     return newWorld;
 }
 
-void drawWorld( World *world, int row, int col )
+void moveTo( EDirection direction, Player *player )
 {
-    int new_height;
-    int new_width;
 
-    new_height = row > world->height ? world->height : row;
-    new_width = col > world->width ? world->width : col;
-    wresize( stdscr, new_height, new_width );
-    int dist_to_right_edge = world->width - world->x_pos;
-    int right_col;
-
-    if ( dist_to_right_edge < col / 2 )
+    if (direction == UP)
     {
-        right_col = world->width;
+        player->y--;
     }
-    else if ( world->x_pos < col / 2 )
-    { // the same as dist to left edge
-        right_col = col;
-    }
-    else
+    else if (direction == DOWN)
     {
-        right_col = world->x_pos + col / 2;
+        player->y++;
     }
-    int dist_to_bottom_edge = world->height - world->y_pos;
-    int bottom_row;
-    if ( dist_to_bottom_edge < row / 2 )
+    else if (direction == LEFT)
     {
-        bottom_row = world->height;
+        player->x--;
     }
-    else if ( world->y_pos < row / 2 )
-    { // the same as dist to upper edge
-        bottom_row = row;
-    }
-    else
+    else if (direction == RIGHT)
     {
-        bottom_row = world->y_pos + row / 2;
-    }
-    size_t left_col = right_col - ( size_t ) minInt( col, world->width );
-    size_t upper_row = bottom_row - ( size_t ) minInt( row, world->height );
-    char *str = malloc( sizeof( char ) *
-                        ( right_col - left_col ) * ( bottom_row - upper_row ));
-    int offset = 0;
-    for ( size_t i = upper_row; i < bottom_row; ++i )
-    {
-        for ( size_t j = left_col; j < right_col; ++j )
-        {
-            if (( i == world->y_pos ) && ( j == world->x_pos ))
-            {
-                str[ offset + j - left_col ] = '@';
-            }
-            else
-            {
-                str[ offset + j - left_col ] = world->map[ i ][ j ];
-            }
-        }
-        offset += ( right_col - left_col );
-    }
-    printw( str );
-    free( str );
-}
-
-int minInt(int x, int y)
-{
-    if (x < y)
-    {
-        return x;
-    }
-    else
-    {
-        return y;
-    }
-}
-
-void move_character( EDirection mvt, World *world )
-{
-    switch ( mvt )
-    {
-        case UP:
-            if ( world->y_pos - 1 < 0 )
-            {
-                break;
-            }
-            if ( world->map[ world->y_pos - 1 ][ world->x_pos ] != '#' )
-            {
-                world->y_pos--;
-            }
-            break;
-        case DOWN:
-            if ( world->y_pos + 1 >= world->height )
-            {
-                break;
-            }
-            if ( world->map[ world->y_pos + 1 ][ world->x_pos ] != '#' )
-            {
-                world->y_pos++;
-            }
-            break;
-        case RIGHT:
-            if ( world->x_pos + 1 >= world->width )
-            {
-                break;
-            }
-            if ( world->map[ world->y_pos ][ world->x_pos + 1 ] != '#' )
-            {
-                world->x_pos++;
-            }
-            break;
-        case LEFT:
-            if ( world->x_pos - 1 < 0 )
-            {
-                break;
-            }
-            if ( world->map[ world->y_pos ][ world->x_pos - 1 ] != '#' )
-            {
-                world->x_pos--;
-            }
-            break;
-        default:
-            break;
+        player->x++;
     }
 }
 
@@ -370,6 +260,7 @@ int main( int argc, char *argv[] )
     }
 
     World world;
+    Player player;
 
     if ( argc == 2 )
     {
@@ -377,54 +268,54 @@ int main( int argc, char *argv[] )
     }
     else
     {
-        world = newWorld( MAP_HEIGHT, MAP_WIDTH, walks, steps );
+        world = newWorld( MAP_HEIGHT, MAP_WIDTH, walks, steps, &player );
     }
 
-    initscr( );
-    keypad( stdscr, TRUE );
-    noecho( );
-    curs_set( 0 );
+    terminal_open();
+    terminal_set("terminal: encoding=437");
+    terminal_set("window: size=80x25, cellsize=auto, title=MGeneration");
 
-    int row, col;
-    int c;
+    // Key pressed for user
+    int key;
 
     _Bool running = true;
 
+    terminal_clear();
+    DrawDungeon(&world, &player);
+    terminal_refresh();
+
     while ( running )
     {
-        clear( );
-        getmaxyx( stdscr, row, col );
-        drawWorld( &world, row, col );
-        refresh( );
-        c = getch( );
-        switch ( c )
+        key = terminal_read( );
+
+        if (key == TK_UP)
         {
-            case KEY_UP:
-            case 'w':
-            case 'k':
-                move_character( UP, &world );
-                break;
-            case KEY_DOWN:
-            case 's':
-            case 'j':
-                move_character( DOWN, &world );
-                break;
-            case KEY_RIGHT:
-            case 'd':
-            case 'l':
-                move_character( RIGHT, &world );
-                break;
-            case KEY_LEFT:
-            case 'a':
-            case 'h':
-                move_character( LEFT, &world );
-                break;
-            case 'q':
-            case 'Q':
-                running = false;
-            default:
-                break;
+            moveTo( UP, &player );
         }
+        else if (key == TK_DOWN)
+        {
+            moveTo( DOWN, &player );
+        }
+        else if (key == TK_LEFT)
+        {
+            moveTo( LEFT, &player );
+        }
+        else if (key == TK_RIGHT)
+        {
+            moveTo( RIGHT, &player );
+        }
+        else if (key == TK_CLOSE)
+        {
+            running = false;
+        }
+
+        // Clear, Draw and Refresh
+        terminal_clear();
+        DrawDungeon(&world, &player);
+        terminal_refresh();
     }
-    endwin( );
+
+    terminal_close();
+
+    return 0;
 }
