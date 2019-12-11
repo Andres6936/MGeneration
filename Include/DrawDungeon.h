@@ -5,4 +5,4 @@
 #include "World.h"
 #include "Player.h"
 
-void DrawDungeon(World* world, Player* player);
+void DrawDungeon(const World& world, Player& player);

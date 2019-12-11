@@ -17,7 +17,7 @@ private:
 
 	char* map = nullptr;
 
-	int getIndex(int x, int y);
+	int getIndex(int x, int y) const;
 
 public:
 
@@ -25,7 +25,7 @@ public:
 
 	World(int width, int height);
 
-	char getGlyph(int x, int y);
+	[[nodiscard]] char getGlyph(int x, int y) const;
 
 	void setGlyph(int x, int y, char glyph);
 

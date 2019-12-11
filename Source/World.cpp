@@ -143,12 +143,12 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 	return newWorld;
 }
 
-int World::getIndex(int x, int y)
+int World::getIndex(int x, int y) const
 {
 	return (y * width) + x;
 }
 
-char World::getGlyph(int x, int y)
+char World::getGlyph(int x, int y) const
 {
 	return map[getIndex(x, y)];
 }

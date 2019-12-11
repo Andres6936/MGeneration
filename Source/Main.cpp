@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 	bool running = true;
 
 	TerminalClear();
-	DrawDungeon(&world, &player);
+	DrawDungeon(world, player);
 	TerminalRefresh();
 
 	// Main Loop
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
 		// Clear, Draw and Refresh
 		TerminalClear();
-		DrawDungeon(&world, &player);
+		DrawDungeon(world, player);
 		TerminalRefresh();
 	}
 
