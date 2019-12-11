@@ -17,7 +17,7 @@ private:
 
 	char* map = nullptr;
 
-	int getIndex(int x, int y) const;
+	[[nodiscard]] int getIndex(int x, int y) const;
 
 public:
 
