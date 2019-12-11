@@ -25,12 +25,16 @@ public:
 
 	World(int width, int height);
 
+	World(int width, int height, int walks, int steps);
+
 	[[nodiscard]] char getGlyph(int x, int y) const;
+
+	[[nodiscard]] int getWidth() const;
+
+	[[nodiscard]] int getHeight() const;
 
 	void setGlyph(int x, int y, char glyph);
 
 };
 
 World loadWorld(const char* filename);
-
-World newWorld(int height, int width, int walks, int steps, Player& player);

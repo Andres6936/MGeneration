@@ -4,6 +4,8 @@
 #include "BearLibTerminal.hpp"
 #include "EDirection.h"
 
+class World;
+
 class Player
 {
 
@@ -18,9 +20,7 @@ public:
 
 	Player(int coordinateX, int coordinateY);
 
-	void setCoordinateX(int X);
-
-	void setCoordinateY(int Y);
+	void setPositionRandomAtMap(World& world);
 
 };
 

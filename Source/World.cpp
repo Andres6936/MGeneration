@@ -5,10 +5,9 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <vector>
 
-#include "BearLibTerminal.hpp"
 #include "World.h"
-#include "Player.h"
 #include "Vector.h"
 #include "EDirection.h"
 
@@ -69,39 +68,51 @@ World loadWorld(const char* filename)
 	return newWorld;
 }
 
-World newWorld(int height, int width, int walks, int steps, Player& player)
+World::World()
 {
-	// Generate an seed for new map.
-	//srand( time(NULL));
+	width = 0;
+	height = 0;
+}
 
-	World newWorld = World(MAP_WIDTH, MAP_HEIGHT);
+World::World(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	this->map = new char[width * height];
+}
 
-	for (int x = 0; x < MAP_WIDTH; x++)
+World::World(int width, int height, int walks, int steps)
+{
+	this->width = width;
+	this->height = height;
+
+	map = new char[width * height];
+
+	for (int i = 0; i < width * height; i++)
 	{
-		for (int y = 0; y < MAP_HEIGHT; y++)
-		{
-			newWorld.setGlyph(x, y, '#');
-		}
+		map[i] = '#';
 	}
 
-	Vector2D* freeCells = new Vector2D[walks * steps];
+	std::vector <Vector2D> freeCells;
+	freeCells.reserve(walks * steps);
 
 	int counter = 0;
 
 	for (int i = 0; i < walks; ++i)
 	{
-		int y, x;
-		y = rand() % height;
-		x = rand() % width;
+		int y = rand() % height;
+		int x = rand() % width;
+
 		for (int j = 0; j < steps; ++j)
 		{
 			EDirection direction = getRandomDirection();
+
 			switch (direction)
 			{
 			case EDirection::NORTH:
 				if ((y - 1) > 1)
 				{
-					newWorld.setGlyph(--y, x, '.');
+					setGlyph(--y, x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -110,7 +121,7 @@ World newWorld(int height, int width, int walks, int steps, Player& player)
 			case EDirection::EAST:
 				if ((x + 1) < width - 1)
 				{
-					newWorld.setGlyph(y, ++x, '.');
+					setGlyph(y, ++x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -119,7 +130,7 @@ World newWorld(int height, int width, int walks, int steps, Player& player)
 			case EDirection::WEST:
 				if ((x - 1) > 1)
 				{
-					newWorld.setGlyph(y, --x, '.');
+					setGlyph(y, --x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -128,7 +139,7 @@ World newWorld(int height, int width, int walks, int steps, Player& player)
 			case EDirection::SOUTH:
 				if ((y + 1) < height - 1)
 				{
-					newWorld.setGlyph(++y, x, '.');
+					setGlyph(++y, x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -137,14 +148,6 @@ World newWorld(int height, int width, int walks, int steps, Player& player)
 			}
 		}
 	}
-
-	Vector2D coodinatePlayerRandom = freeCells[rand() % counter];
-
-	player.setCoordinateX(coodinatePlayerRandom.x);
-	player.setCoordinateY(coodinatePlayerRandom.y);
-
-	free(freeCells);
-	return newWorld;
 }
 
 int World::getIndex(int x, int y) const
@@ -162,15 +165,12 @@ void World::setGlyph(int x, int y, char glyph)
 	map[getIndex(x, y)] = glyph;
 }
 
-World::World(int width, int height)
+int World::getWidth() const
 {
-	this->width = width;
-	this->height = height;
-	this->map = new char[width * height];
+	return width;
 }
 
-World::World()
+int World::getHeight() const
 {
-	width = 0;
-	height = 0;
+	return height;
 }

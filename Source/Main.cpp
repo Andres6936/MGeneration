@@ -22,7 +22,8 @@ int main(int argc, char* argv[])
 	else
 	{
 		// If there are not argument, generate a new map.
-		world = newWorld(MAP_HEIGHT, MAP_WIDTH, walks, steps, player);
+		world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
+		player.setPositionRandomAtMap(world);
 	}
 
 	TerminalOpen();

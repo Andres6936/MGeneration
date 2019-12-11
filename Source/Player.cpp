@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "World.h"
 
 void moveTo(EDirection direction, Player* player)
 {
@@ -53,12 +54,8 @@ Player::Player(int coordinateX, int coordinateY)
 	y = coordinateY;
 }
 
-void Player::setCoordinateX(int X)
+void Player::setPositionRandomAtMap(World& world)
 {
-	this->x = X;
-}
-
-void Player::setCoordinateY(int Y)
-{
-	this->y = Y;
+	x = std::rand() % world.getWidth();
+	y = std::rand() % world.getHeight();
 }
