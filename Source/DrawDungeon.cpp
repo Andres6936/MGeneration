@@ -31,7 +31,7 @@ void DrawDungeon(World* world, Player* player)
 	{
 		for (int y = 0; y < 25; y++)
 		{
-			TerminalPut(x, y, world->map[x + startX][y + startY]);
+			TerminalPut(x, y, world->getGlyph(x + startX, y + startY));
 		}
 	}
 

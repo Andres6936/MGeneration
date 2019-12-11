@@ -1,11 +1,6 @@
-#include <cstdio>
-#include <cstdlib>
-
 #include "BearLibTerminal.hpp"
 #include "World.h"
 #include "Player.h"
-#include "Vector.h"
-#include "EDirection.h"
 #include "DrawDungeon.h"
 
 const unsigned int walks = 1000;

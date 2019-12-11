@@ -16,7 +16,15 @@ public:
 	int width;  /* The width of the world map */
 	int y_pos;  /* Player y position */
 	int x_pos;  /* Player x position */
-	char map[1000][1000];
+	char map[1000 * 1000];
+
+	int getIndex(int x, int y);
+
+public:
+
+	char getGlyph(int x, int y);
+
+	void setGlyph(int x, int y, char glyph);
 
 };
 

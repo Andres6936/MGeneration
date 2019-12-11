@@ -1,6 +1,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+
 #include "BearLibTerminal.hpp"
 #include "World.h"
 #include "Player.h"
@@ -58,7 +59,7 @@ World loadWorld(const char* filename)
 		}
 		else
 		{
-			newWorld.map[row][column] = (char)character;
+			newWorld.setGlyph(row, column, (char)character);
 			column++;
 		}
 	}
@@ -82,7 +83,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 	{
 		for (int y = 0; y < MAP_HEIGHT; y++)
 		{
-			newWorld.map[x][y] = '#';
+			newWorld.setGlyph(x, y, '#');
 		}
 	}
 
@@ -103,7 +104,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 			case EDirection::NORTH:
 				if ((y - 1) > 1)
 				{
-					newWorld.map[--y][x] = '.';
+					newWorld.setGlyph(--y, x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -112,7 +113,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 			case EDirection::EAST:
 				if ((x + 1) < width - 1)
 				{
-					newWorld.map[y][++x] = '.';
+					newWorld.setGlyph(y, ++x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -121,7 +122,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 			case EDirection::WEST:
 				if ((x - 1) > 1)
 				{
-					newWorld.map[y][--x] = '.';
+					newWorld.setGlyph(y, --x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -130,7 +131,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 			case EDirection::SOUTH:
 				if ((y + 1) < height - 1)
 				{
-					newWorld.map[++y][x] = '.';
+					newWorld.setGlyph(++y, x, '.');
 					freeCells[counter].y = y;
 					freeCells[counter].x = x;
 					counter++;
@@ -147,4 +148,19 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 
 	free(freeCells);
 	return newWorld;
+}
+
+int World::getIndex(int x, int y)
+{
+	return (y * width) + x;
+}
+
+char World::getGlyph(int x, int y)
+{
+	return map[getIndex(x, y)];
+}
+
+void World::setGlyph(int x, int y, char glyph)
+{
+	map[getIndex(x, y)] = glyph;
 }
