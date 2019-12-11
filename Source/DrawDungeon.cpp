@@ -31,9 +31,11 @@ void DrawDungeon(const World& world, Player& player)
 	{
 		for (int y = 0; y < 25; y++)
 		{
+			TerminalColor(ColorFromName("white"));
 			TerminalPut(x, y, world.getGlyph(x + startX, y + startY));
 		}
 	}
 
+	TerminalColor(ColorFromName("orange"));
 	TerminalPut(player.x - startX, player.y - startY, '@');
 }
