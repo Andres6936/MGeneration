@@ -10,17 +10,20 @@ constexpr unsigned short MAP_WIDTH = 1000;
 class World
 {
 
-public:
+private:
 
-	int height; /* The height of the world map */
-	int width;  /* The width of the world map */
-	int y_pos;  /* Player y position */
-	int x_pos;  /* Player x position */
-	char map[1000 * 1000];
+	int height; // The height of the world map
+	int width;  // The width of the world map
+
+	char* map = nullptr;
 
 	int getIndex(int x, int y);
 
 public:
+
+	World();
+
+	World(int width, int height);
 
 	char getGlyph(int x, int y);
 

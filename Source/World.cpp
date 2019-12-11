@@ -40,11 +40,7 @@ World loadWorld(const char* filename)
 		exit(EXIT_FAILURE);
 	}
 
-	World newWorld;
-
-	// NOTE: Deleteme
-	newWorld.width = 1000;
-	newWorld.height = 1000;
+	World newWorld = World(1000, 1000);
 
 	int character;
 	int row = 0;
@@ -74,10 +70,7 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 	// Generate an seed for new map.
 	//srand( time(NULL));
 
-	World newWorld;
-
-	newWorld.height = MAP_HEIGHT;
-	newWorld.width = MAP_WIDTH;
+	World newWorld = World(MAP_WIDTH, MAP_HEIGHT);
 
 	for (int x = 0; x < MAP_WIDTH; x++)
 	{
@@ -164,3 +157,17 @@ void World::setGlyph(int x, int y, char glyph)
 {
 	map[getIndex(x, y)] = glyph;
 }
+
+World::World(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	this->map = new char[width * height];
+}
+
+World::World()
+{
+	width = 0;
+	height = 0;
+}
+
