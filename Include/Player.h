@@ -4,13 +4,25 @@
 #include "BearLibTerminal.hpp"
 #include "EDirection.h"
 
-typedef struct
+class Player
 {
+
+public:
 
 	int x;
 	int y;
 
-} Player;
+public:
+
+	Player();
+
+	Player(int coordinateX, int coordinateY);
+
+	void setCoordinateX(int X);
+
+	void setCoordinateY(int Y);
+
+};
 
 void moveTo(EDirection direction, Player* player);
 

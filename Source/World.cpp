@@ -69,7 +69,7 @@ World loadWorld(const char* filename)
 	return newWorld;
 }
 
-World newWorld(int height, int width, int walks, int steps, Player* player)
+World newWorld(int height, int width, int walks, int steps, Player& player)
 {
 	// Generate an seed for new map.
 	//srand( time(NULL));
@@ -140,8 +140,8 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 
 	Vector2D coodinatePlayerRandom = freeCells[rand() % counter];
 
-	player->x = coodinatePlayerRandom.x;
-	player->y = coodinatePlayerRandom.y;
+	player.setCoordinateX(coodinatePlayerRandom.x);
+	player.setCoordinateY(coodinatePlayerRandom.y);
 
 	free(freeCells);
 	return newWorld;

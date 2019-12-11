@@ -40,3 +40,25 @@ void handlerEventPlayer(int key, Player* player)
 		moveTo(EDirection::EAST, player);
 	}
 }
+
+Player::Player()
+{
+	x = 0;
+	y = 0;
+}
+
+Player::Player(int coordinateX, int coordinateY)
+{
+	x = coordinateX;
+	y = coordinateY;
+}
+
+void Player::setCoordinateX(int X)
+{
+	this->x = X;
+}
+
+void Player::setCoordinateY(int Y)
+{
+	this->y = Y;
+}

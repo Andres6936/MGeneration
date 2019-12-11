@@ -33,4 +33,4 @@ public:
 
 World loadWorld(const char* filename);
 
-World newWorld(int height, int width, int walks, int steps, Player* player);
+World newWorld(int height, int width, int walks, int steps, Player& player);

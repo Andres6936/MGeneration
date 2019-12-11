@@ -17,13 +17,12 @@ int main(int argc, char* argv[])
 	if (argc == 2)
 	{
 		world = loadWorld(argv[1]);
-		player.x = 60;
-		player.y = 30;
+		player = Player(60, 30);
 	}
 	else
 	{
 		// If there are not argument, generate a new map.
-		world = newWorld(MAP_HEIGHT, MAP_WIDTH, walks, steps, &player);
+		world = newWorld(MAP_HEIGHT, MAP_WIDTH, walks, steps, player);
 	}
 
 	TerminalOpen();
