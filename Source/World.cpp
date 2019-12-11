@@ -1,3 +1,7 @@
+// Relax, You can deleted this sentence
+#pragma clang diagnostic push
+// Relax, You can deleted this sentence
+#pragma ide diagnostic ignored "cert-msc30-c"
 
 #include <cstdio>
 #include <cstdlib>
@@ -170,4 +174,3 @@ World::World()
 	width = 0;
 	height = 0;
 }
-
