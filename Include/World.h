@@ -27,6 +27,8 @@ public:
 
 	World(int width, int height, int walks, int steps);
 
+	~World();
+
 	[[nodiscard]] char getGlyph(int x, int y) const;
 
 	[[nodiscard]] int getWidth() const;

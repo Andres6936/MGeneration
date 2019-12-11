@@ -174,3 +174,8 @@ int World::getHeight() const
 {
 	return height;
 }
+
+World::~World()
+{
+	delete[] map;
+}
