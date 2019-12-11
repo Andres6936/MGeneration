@@ -1,3 +1,8 @@
+// Relax, You can deleted this sentence
+#pragma clang diagnostic push
+// Relax, You can deleted this sentence
+#pragma ide diagnostic ignored "cert-msc30-c"
+
 #include "Player.h"
 #include "World.h"
 
