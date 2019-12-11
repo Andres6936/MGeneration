@@ -30,9 +30,6 @@ int main(int argc, char* argv[])
 	TerminalSet("terminal: encoding=437");
 	TerminalSet("window: size=80x25, cellsize=auto, title=MGeneration");
 
-	// Key pressed for user
-	int key;
-
 	bool running = true;
 
 	TerminalClear();
@@ -42,7 +39,8 @@ int main(int argc, char* argv[])
 	// Main Loop
 	while (running)
 	{
-		key = TerminalRead();
+		// Key pressed for user
+		int key = TerminalRead();
 
 		// The user close the window or app
 		if (key == TK_CLOSE)
