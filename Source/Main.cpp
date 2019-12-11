@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <cstdlib>
-#include <cstring>
 
 #include "BearLibTerminal.hpp"
 #include "World.h"
@@ -17,7 +16,7 @@ World loadWorld(const char* filename)
 {
 	FILE* stream = fopen(filename, "r");
 
-	if (stream == NULL)
+	if (stream == nullptr)
 	{
 		puts("Error while reading (open) file");
 		exit(EXIT_FAILURE);
@@ -141,8 +140,6 @@ World newWorld(int height, int width, int walks, int steps, Player* player)
 					freeCells[counter].x = x;
 					counter++;
 				}
-				break;
-			default:
 				break;
 			}
 		}
