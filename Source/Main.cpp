@@ -9,7 +9,8 @@ const unsigned int steps = 2500;
 
 int main(int argc, char* argv[])
 {
-	World world;
+	// Initial map.
+	World world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
 	Player player;
 
 	// We assume that the second parameter points to a file that contains
@@ -21,8 +22,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		// If there are not argument, generate a new map.
-		world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
+		// If there are not argument, use the initial map.
 		player.setPositionRandomAtMap(world);
 	}
 
