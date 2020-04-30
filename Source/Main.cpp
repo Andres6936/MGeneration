@@ -1,4 +1,4 @@
-#include "BearLibTerminal.hpp"
+#include <BearLibTerminal/BearLibTerminal.hpp>
 #include "World.h"
 #include "Player.h"
 #include "DrawDungeon.h"

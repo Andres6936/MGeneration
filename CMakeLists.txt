@@ -1,19 +1,26 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
-PROJECT(MGeneration)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
 
-SET(CMAKE_CXX_STANDARD 20)
-SET(CMAKE_CXX_STANDARD_REQUIRED ON)
-SET(CMAKE_CXX_FLAGS "--coverage")
+PROJECT(MGeneration VERSION 0.1 LANGUAGES CXX)
 
-# Find the librarys here
-LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/Lib)
+INCLUDE(CMakeModules/CPM.cmake)
+
+### Add dependencies via CPM
+# Add BearLibTerminal like dependency
+CPMADDPACKAGE(
+        NAME BearLibTerminal
+        GITHUB_REPOSITORY Andres6936/BearLibTerminal
+        VERSION 2020.4
+)
 
 INCLUDE_DIRECTORIES(Include)
 
-ADD_EXECUTABLE(MGeneration Source/Main.cpp
+ADD_EXECUTABLE(MGeneration
+        Source/Main.cpp
         Source/World.cpp
         Source/Player.cpp
         Source/DrawDungeon.cpp)
 
+SET_TARGET_PROPERTIES(MGeneration PROPERTIES CXX_STANDARD 17)
+
 # Load and link the library BearLibTerminal
-TARGET_LINK_LIBRARIES(MGeneration BearLibTerminal)
+TARGET_LINK_LIBRARIES(MGeneration PRIVATE BearLibTerminal)
