@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 
 #include "World.h"
 #include "Player.h"

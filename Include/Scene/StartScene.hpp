@@ -13,7 +13,7 @@ namespace Gen
 
 	public:
 
-		StartScene(std::shared_ptr<Renderer> _renderer);
+		StartScene(std::shared_ptr<Renderer>& _renderer);
 
 		void draw() override;
 

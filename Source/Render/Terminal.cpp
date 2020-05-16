@@ -43,7 +43,7 @@ void Terminal::write(Renderer::UInt32 x, Renderer::UInt32 y, int code)
 	TerminalPut(x, y, code);
 }
 
-void Terminal::writeText(Renderer::UInt32 x, Renderer::UInt32 y, std::string text)
+void Terminal::writeText(UInt32 x, UInt32 y, std::string_view text)
 {
 	TerminalPrint(x, y, text.data());
 }

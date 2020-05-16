@@ -33,7 +33,7 @@ namespace Gen
 
 		void setBackgroundColor(const char* name) override;
 
-		void writeText(UInt32 x, UInt32 y, std::string text) override;
+		void writeText(UInt32 x, UInt32 y, std::string_view text) override;
 
 	};
 
