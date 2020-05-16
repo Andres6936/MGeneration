@@ -94,7 +94,7 @@ World::World(const int width, const int height) noexcept
 
 // Methods
 
-void World::draw(std::unique_ptr<Renderer>& renderer, const Player& player)
+void World::draw(std::shared_ptr<Renderer>& renderer, const Player& player)
 {
 	// WINDOW_WIDTH = 80;
 	// WINDOW_HEIGHT = 25;

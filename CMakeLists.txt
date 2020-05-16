@@ -19,7 +19,7 @@ ADD_EXECUTABLE(MGeneration
         Source/Cell.cpp
         Source/World.cpp
         Source/Player.cpp
-        Source/Render/Terminal.cpp)
+        Source/Render/Terminal.cpp Source/Scene/StartScene.cpp)
 
 SET_TARGET_PROPERTIES(MGeneration PROPERTIES CXX_STANDARD 17)
 

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Render/Renderer.hpp"
 #include "Render/Terminal.hpp"
+#include "Scene/StartScene.hpp"
 
 using namespace Gen;
 
@@ -29,7 +30,10 @@ int main(int argc, char* argv[])
 	}
 
 	Player player = Player(std::ref(world));
-	std::unique_ptr<Renderer> renderer = std::make_unique<Terminal>();
+	std::shared_ptr<Renderer> renderer = std::make_shared<Terminal>();
+
+	StartScene startScene(renderer);
+	startScene.draw();
 
 	bool running = true;
 

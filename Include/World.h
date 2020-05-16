@@ -36,7 +36,7 @@ namespace Gen
 
 		// Methods
 
-		void draw(std::unique_ptr<Renderer>& renderer, const Player& player);
+		void draw(std::shared_ptr<Renderer>& renderer, const Player& player);
 
 		void generateByAutomateCellular(int walks, int steps);
 
