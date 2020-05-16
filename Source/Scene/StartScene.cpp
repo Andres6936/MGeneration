@@ -11,7 +11,6 @@ Gen::StartScene::StartScene(std::shared_ptr<Renderer> _renderer)
 void Gen::StartScene::draw()
 {
 	renderer->clear();
-
-
+	renderer->writeText(1, 1, "Welcome to MGeneration");
 	renderer->refresh();
 }

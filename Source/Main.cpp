@@ -37,7 +37,6 @@ int main(int argc, char* argv[])
 
 	bool running = true;
 
-	renderer->clear();
 	world.draw(renderer, player);
 	renderer->refresh();
 

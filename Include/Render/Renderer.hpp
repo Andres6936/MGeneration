@@ -34,6 +34,8 @@ namespace Gen
 
 		virtual void setBackgroundColor(const char* name) = 0;
 
+		virtual void writeText(UInt32 x, UInt32 y, std::string text) = 0;
+
 	};
 }
 
