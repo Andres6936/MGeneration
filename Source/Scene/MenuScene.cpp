@@ -1,14 +1,14 @@
 // Design by Joan Andrés.
 
 #include <BearLibTerminal/BearLibTerminal.hpp>
-#include "Scene/StartScene.hpp"
+#include "Scene/MenuScene.hpp"
 
-Gen::StartScene::StartScene(std::shared_ptr<Renderer>& _renderer)
+Gen::MenuScene::MenuScene(std::shared_ptr<Renderer>& _renderer)
 {
 	this->renderer = _renderer;
 }
 
-void Gen::StartScene::draw()
+void Gen::MenuScene::draw()
 {
 	renderer->writeText(1, 1, "Welcome to MGeneration");
 	renderer->writeText(1, 2, "Select a option");
