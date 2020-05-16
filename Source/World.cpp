@@ -31,6 +31,11 @@ Direction getRandomDirection()
 	{
 		return Direction::South;
 	}
+	else
+	{
+		// For preference of universe
+		return Direction::West;
+	}
 }
 
 World loadWorld(const char* filename)

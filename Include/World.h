@@ -20,17 +20,23 @@ private:
 
 public:
 
+	// Construct
+
 	World();
 
 	World(int width, int height);
 
 	World(int width, int height, int walks, int steps);
 
-	[[nodiscard]] char getGlyph(int x, int y) const;
+	// Getters
 
-	[[nodiscard]] int getWidth() const;
+	int getWidth() const;
 
-	[[nodiscard]] int getHeight() const;
+	int getHeight() const;
+
+	char getGlyph(int x, int y) const;
+
+	// Setters
 
 	void setGlyph(int x, int y, char glyph);
 
