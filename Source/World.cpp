@@ -204,9 +204,9 @@ void World::draw(std::unique_ptr<Renderer>& renderer, const Player& player)
 
 // Getters
 
-char World::getGlyph(int x, int y) const
+int World::getGlyph(int x, int y) const
 {
-	return at((y * width) + x);
+	return at((y * width) + x).getCode();
 }
 
 int World::getWidth() const
@@ -221,7 +221,7 @@ int World::getHeight() const
 
 // Setters
 
-void World::setGlyph(int x, int y, char glyph)
+void World::setGlyph(int x, int y, int glyph)
 {
-	at(y * width + x) = glyph;
+	at((y * width) + x).setCode(glyph);
 }

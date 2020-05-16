@@ -14,9 +14,9 @@ namespace Gen
 	const unsigned short MAP_HEIGHT = 1000;
 	const unsigned short MAP_WIDTH = 1000;
 
-	using VectorChar = std::vector<char>;
+	using VectorCell = std::vector<Cell>;
 
-	class World final : public VectorChar
+	class World final : public VectorCell
 	{
 
 	private:
@@ -46,11 +46,11 @@ namespace Gen
 
 		int getHeight() const;
 
-		char getGlyph(int x, int y) const;
+		int getGlyph(int x, int y) const;
 
 		// Setters
 
-		void setGlyph(int x, int y, char glyph);
+		void setGlyph(int x, int y, int glyph);
 
 	};
 }

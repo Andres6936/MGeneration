@@ -36,6 +36,10 @@ namespace Gen
 
 		int getCode() const;
 
+		// Setters
+
+		void setCode(int _code);
+
 	};
 }
 
