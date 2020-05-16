@@ -9,7 +9,7 @@ class World;
 class Player
 {
 
-public:
+private:
 
 	int x;
 	int y;
@@ -25,4 +25,10 @@ public:
 	void moveTo(Direction direction);
 
 	void handlerEventPlayer(int key);
+
+	// Getter
+
+	int getX() const;
+
+	int getY() const;
 };

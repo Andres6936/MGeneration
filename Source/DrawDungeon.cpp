@@ -6,23 +6,23 @@ void DrawDungeon(const World& world, Player& player)
 	// WINDOW_WIDTH = 80;
 	// WINDOW_HEIGHT = 25;
 
-	int startX = player.x - (80 / 2);
-	int startY = player.y - (25 / 2);
+	int startX = player.getX() - (80 / 2);
+	int startY = player.getY() - (25 / 2);
 
-	if (player.x < 80 / 2)
+	if (player.getX() < 80 / 2)
 	{
 		startX = 0;
 	}
-	else if (player.x >= MAP_WIDTH - (80 / 2))
+	else if (player.getX() >= MAP_WIDTH - (80 / 2))
 	{
 		startX = MAP_WIDTH - 80;
 	}
 
-	if (player.y < 25 / 2)
+	if (player.getY() < 25 / 2)
 	{
 		startY = 0;
 	}
-	else if (player.y >= MAP_HEIGHT - (25 / 2))
+	else if (player.getY() >= MAP_HEIGHT - (25 / 2))
 	{
 		startY = MAP_HEIGHT - 25;
 	}
@@ -37,5 +37,5 @@ void DrawDungeon(const World& world, Player& player)
 	}
 
 	TerminalColor(ColorFromName("orange"));
-	TerminalPut(player.x - startX, player.y - startY, '@');
+	TerminalPut(player.getX() - startX, player.getY() - startY, '@');
 }

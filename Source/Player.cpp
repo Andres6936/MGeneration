@@ -64,3 +64,13 @@ void Player::setPositionRandomAtMap(World& world)
 	x = std::rand() % world.getWidth();
 	y = std::rand() % world.getHeight();
 }
+
+int Player::getX() const
+{
+	return x;
+}
+
+int Player::getY() const
+{
+	return y;
+}
