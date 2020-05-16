@@ -12,9 +12,17 @@ namespace Gen
 
 	protected:
 
+		// Definitions
+
 		using UInt32 = std::uint32_t;
 
 	public:
+
+		// Destructor
+
+		virtual ~Renderer() = default;
+
+		// Virtual
 
 		virtual void clear() = 0;
 

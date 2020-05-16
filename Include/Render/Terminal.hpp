@@ -8,7 +8,7 @@
 namespace Gen
 {
 
-	class Terminal : public Renderer
+	class Terminal final : public Renderer
 	{
 
 	public:
