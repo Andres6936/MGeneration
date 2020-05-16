@@ -32,13 +32,13 @@ namespace Gen
 
 		World(int width, int height) noexcept;
 
-		World(int width, int height, int walks, int steps) noexcept;
-
 		World(const char* filename) noexcept;
 
 		// Methods
 
 		void draw(std::unique_ptr<Renderer>& renderer, const Player& player);
+
+		void generateByAutomateCellular(int walks, int steps);
 
 		// Getters
 

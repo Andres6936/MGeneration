@@ -92,75 +92,6 @@ World::World(const int width, const int height) noexcept
 	resize(width * height);
 }
 
-World::World(const int width, const int height, const int walks, const int steps) noexcept
-{
-	this->width = width;
-	this->height = height;
-
-	resize(width * height);
-
-	for (int i = 0; i < width * height; i++)
-	{
-		at(i) = '#';
-	}
-
-	std::vector<Vector2D> freeCells;
-	freeCells.reserve(walks * steps);
-
-	int counter = 0;
-
-	for (int i = 0; i < walks; ++i)
-	{
-		int y = rand() % height;
-		int x = rand() % width;
-
-		for (int j = 0; j < steps; ++j)
-		{
-			Direction direction = getRandomDirection();
-
-			switch (direction)
-			{
-			case Direction::North:
-				if ((y - 1) > 1)
-				{
-					setGlyph(--y, x, '.');
-					freeCells[counter].y = y;
-					freeCells[counter].x = x;
-					counter++;
-				}
-				break;
-			case Direction::East:
-				if ((x + 1) < width - 1)
-				{
-					setGlyph(y, ++x, '.');
-					freeCells[counter].y = y;
-					freeCells[counter].x = x;
-					counter++;
-				}
-				break;
-			case Direction::West:
-				if ((x - 1) > 1)
-				{
-					setGlyph(y, --x, '.');
-					freeCells[counter].y = y;
-					freeCells[counter].x = x;
-					counter++;
-				}
-				break;
-			case Direction::South:
-				if ((y + 1) < height - 1)
-				{
-					setGlyph(++y, x, '.');
-					freeCells[counter].y = y;
-					freeCells[counter].x = x;
-					counter++;
-				}
-				break;
-			}
-		}
-	}
-}
-
 // Methods
 
 void World::draw(std::unique_ptr<Renderer>& renderer, const Player& player)
@@ -224,4 +155,66 @@ int World::getHeight() const
 void World::setGlyph(int x, int y, int glyph)
 {
 	at((y * width) + x).setCode(glyph);
+}
+
+void World::generateByAutomateCellular(const int walks, const int steps)
+{
+	// Fill the actual map
+	std::fill(begin(), end(), '#');
+
+	std::vector<Vector2D> freeCells;
+	freeCells.reserve(walks * steps);
+
+	int counter = 0;
+
+	for (int i = 0; i < walks; ++i)
+	{
+		int y = rand() % height;
+		int x = rand() % width;
+
+		for (int j = 0; j < steps; ++j)
+		{
+			Direction direction = getRandomDirection();
+
+			switch (direction)
+			{
+			case Direction::North:
+				if ((y - 1) > 1)
+				{
+					setGlyph(--y, x, '.');
+					freeCells[counter].y = y;
+					freeCells[counter].x = x;
+					counter++;
+				}
+				break;
+			case Direction::East:
+				if ((x + 1) < width - 1)
+				{
+					setGlyph(y, ++x, '.');
+					freeCells[counter].y = y;
+					freeCells[counter].x = x;
+					counter++;
+				}
+				break;
+			case Direction::West:
+				if ((x - 1) > 1)
+				{
+					setGlyph(y, --x, '.');
+					freeCells[counter].y = y;
+					freeCells[counter].x = x;
+					counter++;
+				}
+				break;
+			case Direction::South:
+				if ((y + 1) < height - 1)
+				{
+					setGlyph(++y, x, '.');
+					freeCells[counter].y = y;
+					freeCells[counter].x = x;
+					counter++;
+				}
+				break;
+			}
+		}
+	}
 }

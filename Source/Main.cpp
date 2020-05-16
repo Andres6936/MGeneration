@@ -9,8 +9,8 @@ using namespace Gen;
 
 int main(int argc, char* argv[])
 {
-	const unsigned int walks = 1000;
-	const unsigned int steps = 2500;
+	const unsigned int WALKS = 1000;
+	const unsigned int STEPS = 2500;
 
 	// Initial map.
 	World world;
@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
 	else
 	{
 		// If there are not argument, generate a new map.
-		world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
+		world = World(MAP_HEIGHT, MAP_WIDTH);
+		world.generateByAutomateCellular(WALKS, STEPS);
 	}
 
 	Player player = Player(std::ref(world));
