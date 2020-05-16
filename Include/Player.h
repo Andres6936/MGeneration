@@ -2,14 +2,16 @@
 #pragma once
 
 #include <BearLibTerminal/BearLibTerminal.hpp>
+
 #include "Direction.h"
+#include "Entity.hpp"
 
 namespace Gen
 {
 
 	class World;
 
-	class Player
+	class Player : public Entity
 	{
 
 	private:
@@ -23,11 +25,17 @@ namespace Gen
 
 		Player(int coordinateX, int coordinateY);
 
+		// Methods
+
 		void setPositionRandomAtMap(World& world);
 
 		void moveTo(Direction direction);
 
 		void handlerEventPlayer(int key);
+
+		// Override
+
+		void draw() override;
 
 		// Getter
 

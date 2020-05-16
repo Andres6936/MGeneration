@@ -18,7 +18,8 @@ ADD_EXECUTABLE(MGeneration
         Source/Main.cpp
         Source/World.cpp
         Source/Player.cpp
-        Source/DrawDungeon.cpp)
+        Source/DrawDungeon.cpp
+        Source/Render/Terminal.cpp)
 
 SET_TARGET_PROPERTIES(MGeneration PROPERTIES CXX_STANDARD 17)
 

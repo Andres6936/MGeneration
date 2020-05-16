@@ -1,16 +1,18 @@
-#include <BearLibTerminal/BearLibTerminal.hpp>
+#include <memory>
+
 #include "World.h"
 #include "Player.h"
 #include "DrawDungeon.h"
+#include "Render/Renderer.hpp"
+#include "Render/Terminal.hpp"
 
 using namespace Gen;
 
-const unsigned int walks = 1000;
-
-const unsigned int steps = 2500;
-
 int main(int argc, char* argv[])
 {
+	const unsigned int walks = 1000;
+	const unsigned int steps = 2500;
+
 	// Initial map.
 	World world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
 	Player player;
@@ -28,21 +30,19 @@ int main(int argc, char* argv[])
 		player.setPositionRandomAtMap(world);
 	}
 
-	TerminalOpen();
-	TerminalSet("terminal: encoding=437");
-	TerminalSet("window: size=80x25, cellsize=auto, title=MGeneration");
+	std::unique_ptr<Renderer> renderer = std::make_unique<Terminal>();
 
 	bool running = true;
 
-	TerminalClear();
+	renderer->clear();
 	Gen::DrawDungeon(world, player);
-	TerminalRefresh();
+	renderer->refresh();
 
 	// Main Loop
 	while (running)
 	{
 		// Key pressed for user
-		int key = TerminalRead();
+		int key = renderer->getKeyPressed();
 
 		// The user close the window or app
 		if (key == TK_CLOSE)
@@ -54,12 +54,8 @@ int main(int argc, char* argv[])
 		player.handlerEventPlayer(key);
 
 		// Clear, Draw and Refresh
-		TerminalClear();
+		renderer->clear();
 		Gen::DrawDungeon(world, player);
-		TerminalRefresh();
+		renderer->refresh();
 	}
-
-	TerminalClose();
-
-	return 0;
 }

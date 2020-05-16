@@ -76,3 +76,8 @@ int Player::getY() const
 {
 	return y;
 }
+
+void Player::draw()
+{
+
+}
