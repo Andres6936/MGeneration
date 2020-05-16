@@ -74,26 +74,26 @@ World::World()
 	height = 0;
 }
 
-World::World(int width, int height)
+World::World(const int width, const int height)
 {
 	this->width = width;
 	this->height = height;
-	this->map = new char[width * height];
+	resize(width * height);
 }
 
-World::World(int width, int height, int walks, int steps)
+World::World(const int width, const int height, const int walks, const int steps)
 {
 	this->width = width;
 	this->height = height;
 
-	map = new char[width * height];
+	resize(width * height);
 
 	for (int i = 0; i < width * height; i++)
 	{
-		map[i] = '#';
+		at(i) = '#';
 	}
 
-	std::vector <Vector2D> freeCells;
+	std::vector<Vector2D> freeCells;
 	freeCells.reserve(walks * steps);
 
 	int counter = 0;
@@ -150,19 +150,14 @@ World::World(int width, int height, int walks, int steps)
 	}
 }
 
-int World::getIndex(int x, int y) const
-{
-	return (y * width) + x;
-}
-
 char World::getGlyph(int x, int y) const
 {
-	return map[getIndex(x, y)];
+	return at((y * width) + x);
 }
 
 void World::setGlyph(int x, int y, char glyph)
 {
-	map[getIndex(x, y)] = glyph;
+	at(y * width + x) = glyph;
 }
 
 int World::getWidth() const
@@ -173,9 +168,4 @@ int World::getWidth() const
 int World::getHeight() const
 {
 	return height;
-}
-
-World::~World()
-{
-	delete[] map;
 }
