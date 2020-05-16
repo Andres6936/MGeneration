@@ -21,7 +21,9 @@ ADD_EXECUTABLE(MGeneration
         Source/Player.cpp
         Source/Render/Terminal.cpp
         Source/Scene/MenuScene.cpp
-        Source/Scene/ManagerScene.cpp Source/Scene/PlayScene.cpp)
+        Source/Scene/PlayScene.cpp
+        Source/Scene/ManagerScene.cpp
+        )
 
 SET_TARGET_PROPERTIES(MGeneration PROPERTIES CXX_STANDARD 17)
 
