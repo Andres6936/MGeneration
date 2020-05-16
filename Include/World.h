@@ -7,9 +7,8 @@
 namespace Gen
 {
 
-	constexpr unsigned short MAP_HEIGHT = 1000;
-
-	constexpr unsigned short MAP_WIDTH = 1000;
+	const unsigned short MAP_HEIGHT = 1000;
+	const unsigned short MAP_WIDTH = 1000;
 
 	using VectorChar = std::vector<char>;
 
@@ -25,11 +24,13 @@ namespace Gen
 
 		// Construct
 
-		World();
+		World() noexcept;
 
-		World(int width, int height);
+		World(int width, int height) noexcept;
 
-		World(int width, int height, int walks, int steps);
+		World(int width, int height, int walks, int steps) noexcept;
+
+		World(const char* filename) noexcept;
 
 		// Getters
 
@@ -44,6 +45,4 @@ namespace Gen
 		void setGlyph(int x, int y, char glyph);
 
 	};
-
-	World loadWorld(const char* filename);
 }

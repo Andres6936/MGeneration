@@ -14,19 +14,20 @@ int main(int argc, char* argv[])
 	const unsigned int steps = 2500;
 
 	// Initial map.
-	World world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
+	World world;
 	Player player;
 
 	// We assume that the second parameter points to a file that contains
 	// a map already generated.
 	if (argc == 2)
 	{
-		world = Gen::loadWorld(argv[1]);
+		world = World(argv[1]);
 		player = Player(60, 30);
 	}
 	else
 	{
-		// If there are not argument, use the initial map.
+		// If there are not argument, generate a new map.
+		world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
 		player.setPositionRandomAtMap(world);
 	}
 

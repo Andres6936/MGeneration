@@ -40,17 +40,23 @@ Direction getRandomDirection()
 	}
 }
 
-World loadWorld(const char* filename)
+World::World(const char* filename) noexcept
 {
 	FILE* stream = fopen(filename, "r");
 
 	if (stream == nullptr)
 	{
 		puts("Error while reading (open) file");
-		exit(EXIT_FAILURE);
+		// Generate a empty map
+		this->width = 0;
+		this->height = 0;
+		// Exit of constructor
+		return;
 	}
 
-	World newWorld = World(1000, 1000);
+	this->width = 1000;
+	this->height = 1000;
+	resize(width * height);
 
 	int character;
 	int row = 0;
@@ -65,30 +71,28 @@ World loadWorld(const char* filename)
 		}
 		else
 		{
-			newWorld.setGlyph(row, column, (char)character);
+			setGlyph(row, column, (char)character);
 			column++;
 		}
 	}
 
 	fclose(stream);
-
-	return newWorld;
 }
 
-World::World()
+World::World() noexcept
 {
 	width = 0;
 	height = 0;
 }
 
-World::World(const int width, const int height)
+World::World(const int width, const int height) noexcept
 {
 	this->width = width;
 	this->height = height;
 	resize(width * height);
 }
 
-World::World(const int width, const int height, const int walks, const int steps)
+World::World(const int width, const int height, const int walks, const int steps) noexcept
 {
 	this->width = width;
 	this->height = height;
