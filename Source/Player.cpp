@@ -29,19 +29,19 @@ void moveTo(EDirection direction, Player* player)
 
 void handlerEventPlayer(int key, Player* player)
 {
-	if (key == TK_UP)
+	if (key == TK_UP or key == TK_KP_8)
 	{
 		moveTo(EDirection::NORTH, player);
 	}
-	else if (key == TK_DOWN)
+	else if (key == TK_DOWN or key == TK_KP_2)
 	{
 		moveTo(EDirection::SOUTH, player);
 	}
-	else if (key == TK_LEFT)
+	else if (key == TK_LEFT or key == TK_KP_4)
 	{
 		moveTo(EDirection::WEST, player);
 	}
-	else if (key == TK_RIGHT)
+	else if (key == TK_RIGHT or key == TK_KP_6)
 	{
 		moveTo(EDirection::EAST, player);
 	}
