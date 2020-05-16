@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "World.h"
 
+using namespace Gen;
+
 Player::Player()
 {
 	x = 0;

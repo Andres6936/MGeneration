@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "DrawDungeon.h"
 
+using namespace Gen;
+
 const unsigned int walks = 1000;
 
 const unsigned int steps = 2500;
@@ -17,7 +19,7 @@ int main(int argc, char* argv[])
 	// a map already generated.
 	if (argc == 2)
 	{
-		world = loadWorld(argv[1]);
+		world = Gen::loadWorld(argv[1]);
 		player = Player(60, 30);
 	}
 	else
@@ -33,7 +35,7 @@ int main(int argc, char* argv[])
 	bool running = true;
 
 	TerminalClear();
-	DrawDungeon(world, player);
+	Gen::DrawDungeon(world, player);
 	TerminalRefresh();
 
 	// Main Loop
@@ -53,7 +55,7 @@ int main(int argc, char* argv[])
 
 		// Clear, Draw and Refresh
 		TerminalClear();
-		DrawDungeon(world, player);
+		Gen::DrawDungeon(world, player);
 		TerminalRefresh();
 	}
 

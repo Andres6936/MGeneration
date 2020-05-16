@@ -5,4 +5,7 @@
 #include "World.h"
 #include "Player.h"
 
-void DrawDungeon(const World& world, Player& player);
+namespace Gen
+{
+	void DrawDungeon(const World& world, Player& player);
+}

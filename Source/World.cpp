@@ -11,6 +11,8 @@
 #include "Vector.h"
 #include "Direction.h"
 
+using namespace Gen;
+
 Direction getRandomDirection()
 {
 	int comodin = 1 + rand() % 4;

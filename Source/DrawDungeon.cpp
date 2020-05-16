@@ -1,5 +1,7 @@
 #include "DrawDungeon.h"
 
+using namespace Gen;
+
 void DrawDungeon(const World& world, Player& player)
 {
 

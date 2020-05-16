@@ -1,9 +1,11 @@
 // Only include file once
 #pragma once
 
-typedef struct
+namespace Gen
 {
-	int y;
-	int x;
-
-} Vector2D;
+	struct Vector2D
+	{
+		int y;
+		int x;
+	};
+}

@@ -1,0 +1,6 @@
+// Design by Joan Andrés.
+
+#ifndef MGENERATION_ENTITY_HPP
+#define MGENERATION_ENTITY_HPP
+
+#endif //MGENERATION_ENTITY_HPP

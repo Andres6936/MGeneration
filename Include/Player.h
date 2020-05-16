@@ -4,31 +4,35 @@
 #include <BearLibTerminal/BearLibTerminal.hpp>
 #include "Direction.h"
 
-class World;
-
-class Player
+namespace Gen
 {
 
-private:
+	class World;
 
-	int x;
-	int y;
+	class Player
+	{
 
-public:
+	private:
 
-	Player();
+		int x;
+		int y;
 
-	Player(int coordinateX, int coordinateY);
+	public:
 
-	void setPositionRandomAtMap(World& world);
+		Player();
 
-	void moveTo(Direction direction);
+		Player(int coordinateX, int coordinateY);
 
-	void handlerEventPlayer(int key);
+		void setPositionRandomAtMap(World& world);
 
-	// Getter
+		void moveTo(Direction direction);
 
-	int getX() const;
+		void handlerEventPlayer(int key);
 
-	int getY() const;
-};
+		// Getter
+
+		int getX() const;
+
+		int getY() const;
+	};
+}
