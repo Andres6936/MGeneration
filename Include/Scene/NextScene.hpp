@@ -8,6 +8,7 @@ namespace Gen
 
 	enum class NextScene
 	{
+		None,
 		Menu,
 		Play,
 		Stop,

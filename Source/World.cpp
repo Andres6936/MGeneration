@@ -81,8 +81,8 @@ World::World(const char* filename) noexcept
 
 World::World() noexcept
 {
-	width = 0;
-	height = 0;
+	width = 80;
+	height = 24;
 }
 
 World::World(const int width, const int height) noexcept

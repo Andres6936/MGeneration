@@ -31,9 +31,8 @@ void MenuScene::update()
 
 NextScene MenuScene::event()
 {
-	while (true)
-	{
-		if (renderer->getKeyPressed() == TK_A) return NextScene::Play;
-		if (renderer->getKeyPressed() == TK_B) return NextScene::Exit;
-	}
+	if (renderer->getKeyPressed() == TK_A) return NextScene::Play;
+	if (renderer->getKeyPressed() == TK_B) return NextScene::Exit;
+
+	return NextScene::None;
 }

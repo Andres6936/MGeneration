@@ -2,7 +2,9 @@
 
 #include "Scene/ManagerScene.hpp"
 
-Gen::ManagerScene::ManagerScene(std::shared_ptr<Renderer>& _renderer)
+using namespace Gen;
+
+ManagerScene::ManagerScene(std::shared_ptr<Renderer>& _renderer)
 {
 	menu = std::make_shared<MenuScene>(_renderer);
 	play = std::make_shared<PlayScene>(_renderer);
@@ -10,27 +12,27 @@ Gen::ManagerScene::ManagerScene(std::shared_ptr<Renderer>& _renderer)
 	current = menu;
 }
 
-void Gen::ManagerScene::draw()
+void ManagerScene::draw()
 {
 	current->draw();
 }
 
-void Gen::ManagerScene::clear()
+void ManagerScene::clear()
 {
 	current->clear();
 }
 
-void Gen::ManagerScene::event()
+void ManagerScene::event()
 {
 	next(current->event());
 }
 
-void Gen::ManagerScene::update()
+void ManagerScene::update()
 {
 	current->update();
 }
 
-void Gen::ManagerScene::next(NextScene _scene)
+void ManagerScene::next(NextScene _scene)
 {
 	// The scene is the same and not is necessary
 	// change of scene or show a new.
@@ -39,11 +41,17 @@ void Gen::ManagerScene::next(NextScene _scene)
 	switch (_scene)
 	{
 
+	case NextScene::None:
+		// Continue with the execution.
+		return;
+
 	case NextScene::Menu:
+		currentShow = _scene;
 		current = menu;
 		break;
 
 	case NextScene::Play:
+		currentShow = _scene;
 		current = play;
 		break;
 
@@ -51,6 +59,7 @@ void Gen::ManagerScene::next(NextScene _scene)
 		break;
 
 	case NextScene::Exit:
+		std::exit(0);
 		break;
 
 	}
