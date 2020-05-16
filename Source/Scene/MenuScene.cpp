@@ -32,3 +32,8 @@ void Gen::MenuScene::update()
 {
 
 }
+
+void Gen::MenuScene::event()
+{
+
+}

@@ -28,6 +28,8 @@ namespace Gen
 
 		virtual void clear() = 0;
 
+		virtual void event() = 0;
+
 		virtual void update() = 0;
 
 	};

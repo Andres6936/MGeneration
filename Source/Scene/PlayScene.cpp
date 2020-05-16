@@ -21,3 +21,8 @@ void Gen::PlayScene::update()
 {
 
 }
+
+void Gen::PlayScene::event()
+{
+
+}

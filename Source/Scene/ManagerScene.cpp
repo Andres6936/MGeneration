@@ -14,3 +14,18 @@ void Gen::ManagerScene::draw()
 {
 	current->draw();
 }
+
+void Gen::ManagerScene::clear()
+{
+	current->clear();
+}
+
+void Gen::ManagerScene::event()
+{
+	current->event();
+}
+
+void Gen::ManagerScene::update()
+{
+	current->update();
+}

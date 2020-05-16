@@ -29,6 +29,8 @@ namespace Gen
 
 		void clear();
 
+		void event();
+
 		void update();
 
 	};

@@ -19,6 +19,8 @@ namespace Gen
 
 		void clear() override;
 
+		void event() override;
+
 		void update() override;
 
 	};
