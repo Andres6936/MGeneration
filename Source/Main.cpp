@@ -14,22 +14,20 @@ int main(int argc, char* argv[])
 
 	// Initial map.
 	World world;
-	Player player;
 
 	// We assume that the second parameter points to a file that contains
 	// a map already generated.
 	if (argc == 2)
 	{
 		world = World(argv[1]);
-		player = Player(60, 30);
 	}
 	else
 	{
 		// If there are not argument, generate a new map.
 		world = World(MAP_HEIGHT, MAP_WIDTH, walks, steps);
-		player.setPositionRandomAtMap(world);
 	}
 
+	Player player = Player(std::ref(world));
 	std::unique_ptr<Renderer> renderer = std::make_unique<Terminal>();
 
 	bool running = true;

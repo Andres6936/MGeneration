@@ -8,16 +8,12 @@
 
 using namespace Gen;
 
-Player::Player()
+Player::Player(const std::reference_wrapper<World>& _world) : world(_world)
 {
-	x = 0;
-	y = 0;
-}
+	this->x = 0;
+	this->y = 0;
 
-Player::Player(int coordinateX, int coordinateY)
-{
-	x = coordinateX;
-	y = coordinateY;
+	setPositionRandomAtMap();
 }
 
 void Player::moveTo(Direction direction)
@@ -61,10 +57,10 @@ void Player::handlerEventPlayer(int key)
 	}
 }
 
-void Player::setPositionRandomAtMap(World& world)
+void Player::setPositionRandomAtMap()
 {
-	x = std::rand() % world.getWidth();
-	y = std::rand() % world.getHeight();
+	x = std::rand() % world.get().getWidth();
+	y = std::rand() % world.get().getHeight();
 }
 
 int Player::getX() const

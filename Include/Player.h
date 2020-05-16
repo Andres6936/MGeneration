@@ -2,6 +2,7 @@
 #pragma once
 
 #include <BearLibTerminal/BearLibTerminal.hpp>
+#include <functional>
 
 #include "Direction.h"
 #include "Entity.hpp"
@@ -19,15 +20,15 @@ namespace Gen
 		int x;
 		int y;
 
+		std::reference_wrapper<World> world;
+
 	public:
 
-		Player();
-
-		Player(int coordinateX, int coordinateY);
+		Player(const std::reference_wrapper<World>& _world);
 
 		// Methods
 
-		void setPositionRandomAtMap(World& world);
+		void setPositionRandomAtMap();
 
 		void moveTo(Direction direction);
 
