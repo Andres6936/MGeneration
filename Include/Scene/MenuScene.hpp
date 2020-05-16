@@ -17,6 +17,10 @@ namespace Gen
 
 		void draw() override;
 
+		void clear() override;
+
+		void update() override;
+
 	};
 
 }

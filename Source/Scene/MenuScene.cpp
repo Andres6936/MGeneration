@@ -22,3 +22,13 @@ void Gen::MenuScene::draw()
 		if (renderer->getKeyPressed() == TK_A) return;
 	}
 }
+
+void Gen::MenuScene::clear()
+{
+
+}
+
+void Gen::MenuScene::update()
+{
+
+}

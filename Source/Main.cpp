@@ -1,11 +1,12 @@
 #include <memory>
-#include <iostream>
+
 
 #include "World.h"
 #include "Player.h"
 #include "Render/Renderer.hpp"
 #include "Render/Terminal.hpp"
 #include "Scene/MenuScene.hpp"
+#include "Scene/ManagerScene.hpp"
 
 using namespace Gen;
 
@@ -33,8 +34,8 @@ int main(int argc, char* argv[])
 	Player player = Player(std::ref(world));
 	std::shared_ptr<Renderer> renderer = std::make_shared<Terminal>();
 
-	MenuScene startScene(renderer);
-	startScene.draw();
+	ManagerScene managerScene(renderer);
+	managerScene.draw();
 
 	bool running = true;
 

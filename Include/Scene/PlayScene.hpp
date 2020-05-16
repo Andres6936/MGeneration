@@ -3,13 +3,23 @@
 #ifndef MGENERATION_PLAYSCENE_HPP
 #define MGENERATION_PLAYSCENE_HPP
 
+#include "Scene.hpp"
+
 namespace Gen
 {
 
-	class PlayScene
+	class PlayScene : public Scene
 	{
 
 	public:
+
+		PlayScene(std::shared_ptr<Renderer>& _renderer);
+
+		void draw() override;
+
+		void clear() override;
+
+		void update() override;
 
 	};
 
