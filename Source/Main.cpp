@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Render/Renderer.hpp"
 #include "Render/Terminal.hpp"
-#include "Scene/MenuScene.hpp"
 #include "Scene/ManagerScene.hpp"
 
 using namespace Gen;

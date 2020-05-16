@@ -4,11 +4,13 @@
 
 Gen::ManagerScene::ManagerScene(std::shared_ptr<Renderer>& _renderer)
 {
-	menu = std::make_unique<MenuScene>(_renderer);
-	play = std::make_unique<PlayScene>(_renderer);
+	menu = std::make_shared<MenuScene>(_renderer);
+	play = std::make_shared<PlayScene>(_renderer);
+
+	current = menu;
 }
 
 void Gen::ManagerScene::draw()
 {
-	menu->draw();
+	current->draw();
 }

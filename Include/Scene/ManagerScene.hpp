@@ -16,8 +16,10 @@ namespace Gen
 
 	private:
 
-		std::unique_ptr<PlayScene> play;
-		std::unique_ptr<MenuScene> menu;
+		std::shared_ptr<PlayScene> play;
+		std::shared_ptr<MenuScene> menu;
+
+		std::shared_ptr<Scene> current;
 
 	public:
 
