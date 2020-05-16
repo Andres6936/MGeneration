@@ -4,7 +4,9 @@
 #define MGENERATION_SCENE_HPP
 
 #include <memory>
+
 #include "Render/Renderer.hpp"
+#include "NextScene.hpp"
 
 namespace Gen
 {
@@ -28,7 +30,7 @@ namespace Gen
 
 		virtual void clear() = 0;
 
-		virtual void event() = 0;
+		virtual NextScene event() = 0;
 
 		virtual void update() = 0;
 

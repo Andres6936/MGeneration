@@ -22,10 +22,32 @@ void Gen::ManagerScene::clear()
 
 void Gen::ManagerScene::event()
 {
-	current->event();
+	next(current->event());
 }
 
 void Gen::ManagerScene::update()
 {
 	current->update();
+}
+
+void Gen::ManagerScene::next(NextScene _scene)
+{
+	switch (_scene)
+	{
+
+	case NextScene::Menu:
+		current = menu;
+		break;
+
+	case NextScene::Play:
+		current = play;
+		break;
+
+	case NextScene::Stop:
+		break;
+
+	case NextScene::Exit:
+		break;
+
+	}
 }

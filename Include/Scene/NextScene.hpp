@@ -11,6 +11,7 @@ namespace Gen
 		Menu,
 		Play,
 		Stop,
+		Exit,
 	};
 
 }

@@ -4,6 +4,7 @@
 #define MGENERATION_MENUSCENE_HPP
 
 #include "Scene.hpp"
+#include "NextScene.hpp"
 
 namespace Gen
 {
@@ -19,7 +20,7 @@ namespace Gen
 
 		void clear() override;
 
-		void event() override;
+		NextScene event() override;
 
 		void update() override;
 

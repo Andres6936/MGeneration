@@ -3,12 +3,14 @@
 #include <BearLibTerminal/BearLibTerminal.hpp>
 #include "Scene/MenuScene.hpp"
 
-Gen::MenuScene::MenuScene(std::shared_ptr<Renderer>& _renderer)
+using namespace Gen;
+
+MenuScene::MenuScene(std::shared_ptr<Renderer>& _renderer)
 {
 	this->renderer = _renderer;
 }
 
-void Gen::MenuScene::draw()
+void MenuScene::draw()
 {
 	renderer->writeText(1, 1, "Welcome to MGeneration");
 	renderer->writeText(1, 2, "Select a option");
@@ -17,21 +19,21 @@ void Gen::MenuScene::draw()
 	renderer->refresh();
 }
 
-void Gen::MenuScene::clear()
+void MenuScene::clear()
 {
 
 }
 
-void Gen::MenuScene::update()
+void MenuScene::update()
 {
 
 }
 
-void Gen::MenuScene::event()
+NextScene MenuScene::event()
 {
 	while (true)
 	{
-		if (renderer->getKeyPressed() == TK_B) return;
-		if (renderer->getKeyPressed() == TK_A) return;
+		if (renderer->getKeyPressed() == TK_A) return NextScene::Play;
+		if (renderer->getKeyPressed() == TK_B) return NextScene::Exit;
 	}
 }

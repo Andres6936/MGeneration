@@ -33,6 +33,8 @@ namespace Gen
 
 		void update();
 
+		void next(NextScene _scene);
+
 	};
 
 }
