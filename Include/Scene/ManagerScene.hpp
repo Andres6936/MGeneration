@@ -16,6 +16,8 @@ namespace Gen
 
 	private:
 
+		NextScene currentShow = NextScene::Menu;
+
 		std::shared_ptr<PlayScene> play;
 		std::shared_ptr<MenuScene> menu;
 

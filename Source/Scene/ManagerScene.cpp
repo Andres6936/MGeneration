@@ -32,6 +32,10 @@ void Gen::ManagerScene::update()
 
 void Gen::ManagerScene::next(NextScene _scene)
 {
+	// The scene is the same and not is necessary
+	// change of scene or show a new.
+	if (_scene == currentShow) return;
+
 	switch (_scene)
 	{
 
