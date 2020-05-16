@@ -29,6 +29,10 @@ namespace Gen
 
 		int getKeyPressed() override;
 
+		void write(UInt32 x, UInt32 y, int code) override;
+
+		void setBackgroundColor(const char* name) override;
+
 	};
 
 }

@@ -2,6 +2,9 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+
+#include "Render/Renderer.hpp"
 #include "Player.h"
 
 namespace Gen
@@ -31,6 +34,10 @@ namespace Gen
 		World(int width, int height, int walks, int steps) noexcept;
 
 		World(const char* filename) noexcept;
+
+		// Methods
+
+		void draw(std::unique_ptr<Renderer>& renderer, const Player& player);
 
 		// Getters
 

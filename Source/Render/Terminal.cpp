@@ -32,3 +32,13 @@ int Terminal::getKeyPressed()
 {
 	return TerminalRead();
 }
+
+void Terminal::setBackgroundColor(const char* name)
+{
+	TerminalColor(ColorFromName(name));
+}
+
+void Terminal::write(Renderer::UInt32 x, Renderer::UInt32 y, int code)
+{
+	TerminalPut(x, y, code);
+}

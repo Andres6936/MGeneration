@@ -161,14 +161,52 @@ World::World(const int width, const int height, const int walks, const int steps
 	}
 }
 
+// Methods
+
+void World::draw(std::unique_ptr<Renderer>& renderer, const Player& player)
+{
+	// WINDOW_WIDTH = 80;
+	// WINDOW_HEIGHT = 25;
+
+	int startX = player.getX() - (80 / 2);
+	int startY = player.getY() - (25 / 2);
+
+	if (player.getX() < 80 / 2)
+	{
+		startX = 0;
+	}
+	else if (player.getX() >= MAP_WIDTH - (80 / 2))
+	{
+		startX = MAP_WIDTH - 80;
+	}
+
+	if (player.getY() < 25 / 2)
+	{
+		startY = 0;
+	}
+	else if (player.getY() >= MAP_HEIGHT - (25 / 2))
+	{
+		startY = MAP_HEIGHT - 25;
+	}
+
+	for (int x = 0; x < 80; x++)
+	{
+		for (int y = 0; y < 25; y++)
+		{
+			renderer->setBackgroundColor("white");
+			renderer->write(x, y, getGlyph(x + startX, y + startY));
+		}
+	}
+
+	renderer->setBackgroundColor("orange");
+	renderer->write(player.getX() - startX, player.getY() - startY, '@');
+}
+
+// Getters
+
 char World::getGlyph(int x, int y) const
 {
 	return at((y * width) + x);
-}
-
-void World::setGlyph(int x, int y, char glyph)
-{
-	at(y * width + x) = glyph;
 }
 
 int World::getWidth() const
@@ -179,4 +217,11 @@ int World::getWidth() const
 int World::getHeight() const
 {
 	return height;
+}
+
+// Setters
+
+void World::setGlyph(int x, int y, char glyph)
+{
+	at(y * width + x) = glyph;
 }

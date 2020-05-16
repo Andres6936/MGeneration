@@ -2,7 +2,6 @@
 
 #include "World.h"
 #include "Player.h"
-#include "DrawDungeon.h"
 #include "Render/Renderer.hpp"
 #include "Render/Terminal.hpp"
 
@@ -36,7 +35,7 @@ int main(int argc, char* argv[])
 	bool running = true;
 
 	renderer->clear();
-	Gen::DrawDungeon(world, player);
+	world.draw(renderer, player);
 	renderer->refresh();
 
 	// Main Loop
@@ -56,7 +55,7 @@ int main(int argc, char* argv[])
 
 		// Clear, Draw and Refresh
 		renderer->clear();
-		Gen::DrawDungeon(world, player);
+		world.draw(renderer, player);
 		renderer->refresh();
 	}
 }
