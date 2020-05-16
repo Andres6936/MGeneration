@@ -9,27 +9,27 @@
 
 #include "World.h"
 #include "Vector.h"
-#include "EDirection.h"
+#include "Direction.h"
 
-EDirection getRandomDirection()
+Direction getRandomDirection()
 {
 	int comodin = 1 + rand() % 4;
 
 	if (comodin == 1)
 	{
-		return EDirection::NORTH;
+		return Direction::North;
 	}
 	else if (comodin == 2)
 	{
-		return EDirection::WEST;
+		return Direction::West;
 	}
 	else if (comodin == 3)
 	{
-		return EDirection::EAST;
+		return Direction::East;
 	}
 	else if (comodin == 4)
 	{
-		return EDirection::SOUTH;
+		return Direction::South;
 	}
 }
 
@@ -105,11 +105,11 @@ World::World(int width, int height, int walks, int steps)
 
 		for (int j = 0; j < steps; ++j)
 		{
-			EDirection direction = getRandomDirection();
+			Direction direction = getRandomDirection();
 
 			switch (direction)
 			{
-			case EDirection::NORTH:
+			case Direction::North:
 				if ((y - 1) > 1)
 				{
 					setGlyph(--y, x, '.');
@@ -118,7 +118,7 @@ World::World(int width, int height, int walks, int steps)
 					counter++;
 				}
 				break;
-			case EDirection::EAST:
+			case Direction::East:
 				if ((x + 1) < width - 1)
 				{
 					setGlyph(y, ++x, '.');
@@ -127,7 +127,7 @@ World::World(int width, int height, int walks, int steps)
 					counter++;
 				}
 				break;
-			case EDirection::WEST:
+			case Direction::West:
 				if ((x - 1) > 1)
 				{
 					setGlyph(y, --x, '.');
@@ -136,7 +136,7 @@ World::World(int width, int height, int walks, int steps)
 					counter++;
 				}
 				break;
-			case EDirection::SOUTH:
+			case Direction::South:
 				if ((y + 1) < height - 1)
 				{
 					setGlyph(++y, x, '.');

@@ -6,47 +6,6 @@
 #include "Player.h"
 #include "World.h"
 
-void moveTo(EDirection direction, Player* player)
-{
-
-	if (direction == EDirection::NORTH)
-	{
-		player->y--;
-	}
-	else if (direction == EDirection::SOUTH)
-	{
-		player->y++;
-	}
-	else if (direction == EDirection::WEST)
-	{
-		player->x--;
-	}
-	else if (direction == EDirection::EAST)
-	{
-		player->x++;
-	}
-}
-
-void handlerEventPlayer(int key, Player* player)
-{
-	if (key == TK_UP or key == TK_KP_8)
-	{
-		moveTo(EDirection::NORTH, player);
-	}
-	else if (key == TK_DOWN or key == TK_KP_2)
-	{
-		moveTo(EDirection::SOUTH, player);
-	}
-	else if (key == TK_LEFT or key == TK_KP_4)
-	{
-		moveTo(EDirection::WEST, player);
-	}
-	else if (key == TK_RIGHT or key == TK_KP_6)
-	{
-		moveTo(EDirection::EAST, player);
-	}
-}
-
 Player::Player()
 {
 	x = 0;
@@ -57,6 +16,47 @@ Player::Player(int coordinateX, int coordinateY)
 {
 	x = coordinateX;
 	y = coordinateY;
+}
+
+void Player::moveTo(Direction direction)
+{
+
+	if (direction == Direction::North)
+	{
+		y--;
+	}
+	else if (direction == Direction::South)
+	{
+		y++;
+	}
+	else if (direction == Direction::West)
+	{
+		x--;
+	}
+	else if (direction == Direction::East)
+	{
+		x++;
+	}
+}
+
+void Player::handlerEventPlayer(int key)
+{
+	if (key == TK_UP or key == TK_KP_8)
+	{
+		moveTo(Direction::North);
+	}
+	else if (key == TK_DOWN or key == TK_KP_2)
+	{
+		moveTo(Direction::South);
+	}
+	else if (key == TK_LEFT or key == TK_KP_4)
+	{
+		moveTo(Direction::West);
+	}
+	else if (key == TK_RIGHT or key == TK_KP_6)
+	{
+		moveTo(Direction::East);
+	}
 }
 
 void Player::setPositionRandomAtMap(World& world)

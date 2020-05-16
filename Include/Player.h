@@ -2,7 +2,7 @@
 #pragma once
 
 #include <BearLibTerminal/BearLibTerminal.hpp>
-#include "EDirection.h"
+#include "Direction.h"
 
 class World;
 
@@ -22,8 +22,7 @@ public:
 
 	void setPositionRandomAtMap(World& world);
 
+	void moveTo(Direction direction);
+
+	void handlerEventPlayer(int key);
 };
-
-void moveTo(EDirection direction, Player* player);
-
-void handlerEventPlayer(int key, Player* player);

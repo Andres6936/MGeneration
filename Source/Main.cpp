@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 		}
 
 		// Handle events
-		handlerEventPlayer(key, &player);
+		player.handlerEventPlayer(key);
 
 		// Clear, Draw and Refresh
 		TerminalClear();
