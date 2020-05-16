@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	ManagerScene managerScene(renderer);
 
 	// Main Loop
-	while (true)
+	while (managerScene.isRunning())
 	{
 		managerScene.clear();
 		managerScene.draw();

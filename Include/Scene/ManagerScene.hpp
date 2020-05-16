@@ -16,6 +16,8 @@ namespace Gen
 
 	private:
 
+		bool running = true;
+
 		NextScene currentShow = NextScene::Menu;
 
 		std::shared_ptr<PlayScene> play;
@@ -36,6 +38,8 @@ namespace Gen
 		void update();
 
 		void next(NextScene _scene);
+
+		bool isRunning() const;
 
 	};
 

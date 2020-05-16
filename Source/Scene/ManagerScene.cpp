@@ -59,8 +59,13 @@ void ManagerScene::next(NextScene _scene)
 		break;
 
 	case NextScene::Exit:
-		std::exit(0);
+		running = false;
 		break;
 
 	}
+}
+
+bool ManagerScene::isRunning() const
+{
+	return running;
 }
