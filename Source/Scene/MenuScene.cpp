@@ -15,12 +15,6 @@ void Gen::MenuScene::draw()
 	renderer->writeText(1, 4, "a) Generate map");
 	renderer->writeText(1, 5, "b) Exit of app");
 	renderer->refresh();
-
-	while (true)
-	{
-		if (renderer->getKeyPressed() == TK_B) return;
-		if (renderer->getKeyPressed() == TK_A) return;
-	}
 }
 
 void Gen::MenuScene::clear()
@@ -35,5 +29,9 @@ void Gen::MenuScene::update()
 
 void Gen::MenuScene::event()
 {
-
+	while (true)
+	{
+		if (renderer->getKeyPressed() == TK_B) return;
+		if (renderer->getKeyPressed() == TK_A) return;
+	}
 }

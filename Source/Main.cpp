@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 
 	ManagerScene managerScene(renderer);
 	managerScene.draw();
+	managerScene.event();
 
 	bool running = true;
 
