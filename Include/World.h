@@ -4,8 +4,9 @@
 #include <vector>
 #include <memory>
 
-#include "Render/Renderer.hpp"
+#include "Cell.hpp"
 #include "Player.h"
+#include "Render/Renderer.hpp"
 
 namespace Gen
 {

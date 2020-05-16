@@ -16,6 +16,7 @@ INCLUDE_DIRECTORIES(Include)
 
 ADD_EXECUTABLE(MGeneration
         Source/Main.cpp
+        Source/Cell.cpp
         Source/World.cpp
         Source/Player.cpp
         Source/Render/Terminal.cpp)
